@@ -107,7 +107,6 @@ Sequence.prototype.sort = function(elem) {
 	a = a.sort(function(a, b) {
 		return get_value(b) - get_value(a);
 	});
-	console.log(a);
 	for (var i = a.length; i --; ) {
 		elem.appendChild(a[i]);
 	}
@@ -115,7 +114,6 @@ Sequence.prototype.sort = function(elem) {
 
 // Finds the appropriate parent for an element
 Sequence.prototype.findParent = function(elem) {
-	console.log(elem);
 	var id = elem.getAttribute(Sequence.prefix + "-id");
 	// Find parents for this size
 	var parents = document.querySelectorAll("[" +
