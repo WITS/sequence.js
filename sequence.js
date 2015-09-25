@@ -63,17 +63,17 @@ Sequence.prototype.getWidth = function() {
 // Updates the order and parents of elements where
 // appropriate throughout the entire document
 Sequence.prototype.update = function() {
-	// Element order
-	var containers = document.querySelectorAll(
-		"[" + Sequence.prefix + "-container]");
-	for (var i = containers.length; i --; ) {
-		Sequence.sort(containers[i]);
-	}
 	// Element parent
 	var elements = document.querySelectorAll(
 		"[" + Sequence.prefix + "-id]");
 	for (var i = elements.length; i --; ) {
 		Sequence.findParent(elements[i]);
+	}
+	// Element order
+	var containers = document.querySelectorAll(
+		"[" + Sequence.prefix + "-container]");
+	for (var i = containers.length; i --; ) {
+		Sequence.sort(containers[i]);
 	}
 }
 
@@ -124,6 +124,7 @@ Sequence.prototype.findParent = function(elem) {
 		if (p.getAttribute(Sequence.prefix +
 			"-for-" + Sequence.lastWidth).split(
 			",").indexOf(id) != -1) {
+			p.setAttribute(Sequence.prefix + "-container", "");
 			p.appendChild(elem);
 			return;
 		}
@@ -135,6 +136,7 @@ Sequence.prototype.findParent = function(elem) {
 		if (p.getAttribute(Sequence.prefix +
 			"-for").split(
 			",").indexOf(id) != -1) {
+			p.setAttribute(Sequence.prefix + "-container", "");
 			p.appendChild(elem);
 			return;
 		}
