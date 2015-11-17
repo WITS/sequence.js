@@ -45,7 +45,7 @@ Sequence.prototype.getWidth = function() {
 	// Compare width to breakpoints
 	for (var i = Sequence.breakpoints.length; i --; ) {
 		var bp = Sequence.breakpoints[i];
-		if (w > bp) {
+		if (w >= bp) {
 			if (Sequence.lastWidth != bp) {
 				Sequence.lastWidth = bp;
 				return true;
