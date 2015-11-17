@@ -9,6 +9,7 @@ Sequence = function() {
 	// Populate this array with the min-width's used for
 	// CSS media queries
 	this.breakpoints = new Array();
+	this.callbacks = new Object();
 }
 
 // The prefix to use for data-attributes
@@ -74,6 +75,18 @@ Sequence.prototype.update = function() {
 		"[" + Sequence.prefix + "-container]");
 	for (var i = containers.length; i --; ) {
 		Sequence.sort(containers[i]);
+	}
+	// Call events
+	var function_queue = new Array();
+	if (Sequence.callbacks.update) {
+		function_queue = function_queue.concat(Sequence.callbacks.update);
+	}
+	if (Sequence.callbacks["update-" + Sequence.lastWidth]) {
+		function_queue = function_queue.concat(
+			Sequence.callbacks["update-" + Sequence.lastWidth]);
+	}
+	for (var x = 0, y = function_queue.length; x < y; ++ x) {
+		function_queue[x]();
 	}
 }
 
@@ -141,6 +154,12 @@ Sequence.prototype.findParent = function(elem) {
 			return;
 		}
 	}
+}
+
+Sequence.prototype.addEventListener = function(type, callback) {
+	// Verify that this type of callback exists
+	if (this.callbacks[type] == null) this.callbacks[type] = new Array();
+	this.callbacks[type].push(callback);
 }
 
 // For easy access
