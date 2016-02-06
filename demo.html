@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='sequence.js'></script>
+    <script>
+        Sequence.setBreakpoints(600, 968, 1200);
+        Sequence.addEventListener("update", function() {
+        		console.log(Sequence.lastWidth);
+        });
+        Sequence.addEventListener("update-600", function() {
+        		console.log("I'm tiny");
+        });
+        Sequence.addEventListener("update-968", function() {
+        		console.log("I'm decent");
+        });
+    </script>
+</head>
+<body>
+<div id='one' sq-for='pancake1,pancake2'>
+    <span sq-id='pancake1'>Pancake 1</span>
+    <span sq-id='pancake2' sq-order='1'>Pancake 2</span>
+    <span sq-id='pancake3' sq-order='2'>Pancake 3</span>
+</div>
+<div id='two' sq-for-968='pancake1' sq-for-1200='pancake1'></div>
+<div id='three' sq-for-1200='pancake2'></div>
+</body>
+</html>
